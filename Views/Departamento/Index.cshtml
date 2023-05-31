@@ -1,0 +1,40 @@
+@model IEnumerable<Aperfeicoa.Models.TbDepartamentos>
+@{
+    ViewData["Title"] = "Aperfeicoa - Departamentos";
+}
+
+<div class="text-center">
+    <h1>Departamentos</h1>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-auto">
+        <table class="table table-responsive">
+            <thead>
+                <th>
+                    @Html.DisplayNameFor(model => Model.First().IdDepartamento)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => Model.First().NmDepartamento)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => Model.First().FgAtivo)
+                </th>
+            </thead>
+            <tbody>
+            @foreach (var item in Model)
+            {
+                <th>
+                    @Html.DisplayFor(modelItem => item.IdDepartamento)
+                </th>                
+                <th>
+                    @Html.DisplayFor(modelItem => item.NmDepartamento)
+                </th>                
+                <th>
+                    @Html.DisplayFor(modelItem => item.FgAtivo)
+                </th>                
+            }
+            </tbody>
+        </table>
+    </div>
+</div>

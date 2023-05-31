@@ -1,7 +1,18 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Aperfeicoa.Data;
+using Aperfeicoa.Services;
+using Aperfeicoa.Services.Interfaces;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<AcademicoContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Academico") ?? 
+    throw new InvalidOperationException("Connection string 'AcademicoContext' not found.")
+));
+builder.Services.AddScoped<IDepartamentoService, DepartamentoDBContext>();
 
 var app = builder.Build();
 

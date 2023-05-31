@@ -12,22 +12,27 @@ public partial class TbDepartamentos
 {
     [Key]
     [Column("id_departamento")]
+    [Display(Name = "Id Depto")]
     public int IdDepartamento { get; set; }
 
     [Column("nm_departamento")]
     [StringLength(40)]
     [Unicode(false)]
+    [Display(Name = "Nome")]
     public string NmDepartamento { get; set; } = null!;
 
     [Column("localizacao")]
     [StringLength(60)]
     [Unicode(false)]
+    [Display(Name = "Localização")]
     public string Localizacao { get; set; } = null!;
 
     [Column("id_gerente")]
+    [Display(Name = "Id Gerente")]
     public int? IdGerente { get; set; }
 
     [Column("fg_ativo")]
+    [Display(Name = "Ativo")]
     public bool? FgAtivo { get; set; }
 
     [ForeignKey("IdGerente")]
