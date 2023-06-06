@@ -5,5 +5,5 @@ namespace Aperfeicoa.Services.Interfaces;
 
 public interface IDepartamentoService : IService<TbDepartamentos>
 {
-       
+      public int GetNextId();
 }

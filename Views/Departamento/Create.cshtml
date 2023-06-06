@@ -1,0 +1,59 @@
+@model Aperfeicoa.Models.TbDepartamentos
+@{
+    bool editar = (ViewData["Editar"] as bool?).HasValue ? (ViewData["Editar"] as bool?).Value : false;  
+    if (editar) 
+        ViewData["Title"] = "Editar cliente";
+    else 
+        ViewData["Title"] = "Novo cliente";
+    List<SelectListItem>? listEmpregados = ViewData["Empregados"] as List<SelectListItem>;
+}
+
+<div class="text-center">
+    <h1>Novo Departamento</h1>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-auto">
+        <div class="row">
+            <div class="col">
+                <form method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    @if (editar)
+                    {
+                        <input type="hidden" asp-for="IdDepartamento" class="form-control" />
+                    }
+                    <div class="form-group">
+                        <label asp-for="NmDepartamento" class="control-label"></label>
+                        <input asp-for="NmDepartamento" class="form-control" />
+                        <span asp-validation-for="NmDepartamento" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Localizacao" class="control-label"></label>
+                        <input asp-for="Localizacao" class="form-control" />
+                        <span asp-validation-for="Localizacao" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Gerente</label>
+                        <select asp-for="IdGerente" class="form-control" asp-items="@listEmpregados"></select>
+                    </div>
+                    <div><hr /></div>
+                    <div class="form-group">
+                    @if (editar)
+                    {
+                        <input type="submit" asp-action="Update" value="Atualizar" class="btn btn-primary" /><span>  </span>
+                    }
+                    else
+                    {
+                        <input type="submit" asp-action="Create" value="Adicionar" class="btn btn-primary" /><span>  </span>
+                    }
+                        <a asp-action="Index" class="btn btn-secondary">Voltar</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}

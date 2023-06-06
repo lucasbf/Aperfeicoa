@@ -1,0 +1,14 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "bootstrap-icons@1.10.5",
+      "destination": "wwwroot/lib/bootstrap-icons"
+    },
+    {
+      "library": "jquery-ui-bootstrap@0.5pre",
+      "destination": "wwwroot/lib/jquery-ui-bootstrap"
+    }
+  ]
+}

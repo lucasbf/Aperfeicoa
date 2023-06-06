@@ -2,13 +2,19 @@
 @{
     ViewData["Title"] = "Aperfeicoa - Departamentos";
 }
+@section Scripts 
+{
+    <script type="text/javascript" src=@Url.Content("~/js/departamento/Index.js")></script>
+}
 
 <div class="text-center">
     <h1>Departamentos</h1>
 </div>
-
 <div class="row justify-content-center">
     <div class="col-auto">
+        <p>
+            <a asp-action="Create">Novo Departamento</a>
+        </p>
         <table class="table table-responsive">
             <thead>
                 <th>
@@ -18,23 +24,70 @@
                     @Html.DisplayNameFor(model => Model.First().NmDepartamento)
                 </th>
                 <th>
+                    @Html.DisplayNameFor(model => Model.First().Localizacao)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => Model.First().IdGerenteNavigation!.NmEmpregado)
+                </th>
+                <th>
                     @Html.DisplayNameFor(model => Model.First().FgAtivo)
+                </th>
+                <th>
+
                 </th>
             </thead>
             <tbody>
             @foreach (var item in Model)
             {
-                <th>
-                    @Html.DisplayFor(modelItem => item.IdDepartamento)
-                </th>                
-                <th>
-                    @Html.DisplayFor(modelItem => item.NmDepartamento)
-                </th>                
-                <th>
-                    @Html.DisplayFor(modelItem => item.FgAtivo)
-                </th>                
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdDepartamento)
+                    </td>                
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NmDepartamento)
+                    </td>                
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Localizacao)
+                    </td>                
+                    <td>
+                        @Html.DisplayFor(model => item.IdGerenteNavigation!.NmEmpregado)
+                    </td>
+                    <td>
+                        <div class="text-center">
+                        @if (item.FgAtivo.HasValue && item.FgAtivo.Value)
+                        {
+                            <i class="bi bi-check"></i>
+                        }
+                        else 
+                        {
+                            <i class="bi bi-trash"></i>
+                        }
+                        </div>
+                    </td>                
+                        @if (item.FgAtivo.HasValue && item.FgAtivo.Value)
+                        {
+                            <td>
+                                <a asp-action="Update" asp-route-id="@item.IdDepartamento" class="btn btn-primary"><i class="bi bi-pencil-square"></i></a> |
+                                <!--<a asp-action="Detalhar" asp-route-id="@item.IdDepartamento">Detalhar</a> |-->
+                                <a href="#" class="remover-item btn btn-outline-danger" data-id="@item.IdDepartamento"><i class="bi bi-trash"></i></a>
+                            </td>
+                        } 
+                        else
+                        {
+                            <td>
+                                <a asp-action="Undelete" asp-route-id="@item.IdDepartamento" class="btn btn-primary"><i class="bi bi-recycle"></i></a> 
+                            </td>
+                        }
+                </tr>
             }
             </tbody>
         </table>
     </div>
+</div>
+
+<div id="dialog-confirm" title="Remover departamento?">
+    <p>
+        <span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>
+        O departamento será desativado. Deseja prosseguir?
+    </p>
 </div>

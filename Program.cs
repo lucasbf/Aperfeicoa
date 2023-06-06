@@ -13,6 +13,7 @@ builder.Services.AddDbContext<AcademicoContext>(options =>
     throw new InvalidOperationException("Connection string 'AcademicoContext' not found.")
 ));
 builder.Services.AddScoped<IDepartamentoService, DepartamentoDBContext>();
+builder.Services.AddScoped<IEmpregadoService, EmpregadoDBContext>();
 
 var app = builder.Build();
 

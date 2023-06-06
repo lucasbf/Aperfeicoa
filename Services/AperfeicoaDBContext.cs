@@ -12,31 +12,46 @@ public abstract class AperfeicoaDBContext<T> where T : class
         _context = context;
     }
 
-    public abstract DbSet<T> Set { get; }
+    protected abstract DbSet<T> Set { get; }
 
-    public void Create(T entity)
+    protected virtual List<string> GetIncludeRelationship() 
+    {
+        return new List<string>();
+    }
+
+    public virtual void Create(T entity)
     {
         Set.Add(entity);
         _context.SaveChanges();
     }
 
-    public T Get(T entity)
+    private IQueryable<T> GetQueryRelationsip()
     {
-        return Set.FirstOrDefault(entity);
+        IQueryable<T> query = Set;
+        foreach (var item in GetIncludeRelationship())
+        {
+            query = query.Include(item);
+        }
+        return query;
     }
 
-    public IEnumerable<T> GetAll()
+    public virtual T Get(Func<T, bool> predicate)
     {
-        return Set.AsEnumerable();
+        return GetQueryRelationsip().First(predicate);
     }
 
-    public void Remove(T entity)
+    public virtual IEnumerable<T> GetAll()
+    {
+        return GetQueryRelationsip().AsEnumerable();
+    }
+
+    public virtual void Remove(T entity)
     {
         Set.Remove(entity);
         _context.SaveChanges(); 
     }
 
-    public void Update(T entity)
+    public virtual void Update(T entity)
     {
         Set.Update(entity);
         _context.SaveChanges();
